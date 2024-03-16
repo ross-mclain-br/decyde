@@ -2,19 +2,106 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+enum MovieType {
+  MOVIE
+  SERIES
+}
 
-    @@index([name])
+model User {
+  id           Int              @id @default(autoincrement())
+  externalId   String           @unique
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  emailAddress String           @unique
+  firstName    String?
+  lastName     String?
+  avatar       String?
+  identities   UserIdentities[]
+  UserGroup    UserGroup[]
+  Group        Group[]
+  MovieVote    MovieVote[]
+
+  @@index([externalId])
+}
+
+model UserIdentities {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userId     Int
+  provider   String
+  providerId String
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@unique([provider, userId])
+  @@index([userId])
+}
+
+model Movie {
+  id        Int         @id @default(autoincrement())
+  title     String
+  year      Int
+  imdbId    String      @unique
+  type      MovieType
+  posterUrl String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  MovieVote MovieVote[]
+
+  @@index([imdbId])
+}
+
+model Group {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String
+  description String?
+  image       String?
+  color       String
+  ownerId     Int
+  owner       User     @relation(fields: [ownerId], references: [id])
+
+  users     UserGroup[]
+  MovieVote MovieVote[]
+
+  @@index([ownerId])
+}
+
+model UserGroup {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+  groupId   Int
+  user      User     @relation(fields: [userId], references: [id])
+  group     Group    @relation(fields: [groupId], references: [id])
+
+  @@index([userId])
+  @@index([groupId])
+}
+
+model MovieVote {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+  movieId   Int
+  groupId   Int?
+  vote      Int
+  user      User     @relation(fields: [userId], references: [id])
+  movie     Movie    @relation(fields: [movieId], references: [id])
+  group     Group?   @relation(fields: [groupId], references: [id])
+
+  @@unique([userId, movieId, groupId])
+  @@index([userId])
+  @@index([movieId])
 }

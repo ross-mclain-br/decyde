@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
-export const postRouter = createTRPCRouter({
+export const omdbRouter = createTRPCRouter({
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
     .query(({ input }) => {
@@ -24,9 +24,11 @@ export const postRouter = createTRPCRouter({
       });
     }),
 
-  getLatest: publicProcedure.query(({ ctx }) => {
-    return ctx.db.post.findFirst({
-      orderBy: { createdAt: "desc" },
-    });
-  }),
+  search: publicProcedure
+    .input(z.object({ search: z.string() }))
+    .query(({ ctx }) => {
+      return ctx.db.post.findFirst({
+        orderBy: { createdAt: "desc" },
+      });
+    }),
 });
