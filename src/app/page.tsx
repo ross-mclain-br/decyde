@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { CreatePost } from "~/app/_components/create-post";
 import { api } from "~/trpc/server";
 
 export default async function Home() {
@@ -51,9 +50,5 @@ export default async function Home() {
 async function CrudShowcase() {
   // const latestPost = await api.omdb.getLatest();
 
-  return (
-    <div className="w-full max-w-xs">
-      <CreatePost />
-    </div>
-  );
+  return <div className="w-full max-w-xs"></div>;
 }
