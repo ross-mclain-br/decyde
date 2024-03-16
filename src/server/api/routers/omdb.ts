@@ -12,14 +12,18 @@ export const omdbRouter = createTRPCRouter({
     }),
 
   create: publicProcedure
-    .input(z.object({ name: z.string().min(1) }))
+    .input(z.object({ title: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
       // simulate a slow db call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      return ctx.db.post.create({
+      return ctx.db.movie.create({
         data: {
-          name: input.name,
+          title: input.title,
+          type: "MOVIE",
+          year: 2024,
+          imdbId: "tt1234567",
+          posterUrl: "https://example.com/poster.jpg",
         },
       });
     }),
@@ -27,7 +31,7 @@ export const omdbRouter = createTRPCRouter({
   search: publicProcedure
     .input(z.object({ search: z.string() }))
     .query(({ ctx }) => {
-      return ctx.db.post.findFirst({
+      return ctx.db.movie.findFirst({
         orderBy: { createdAt: "desc" },
       });
     }),
