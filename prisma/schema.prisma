@@ -28,6 +28,7 @@ model User {
   UserGroup    UserGroup[]
   Group        Group[]
   MovieVote    MovieVote[]
+  GroupInvite  GroupInvite[]
 
   @@index([externalId])
 }
@@ -70,10 +71,37 @@ model Group {
   ownerId     Int
   owner       User     @relation(fields: [ownerId], references: [id])
 
-  users     UserGroup[]
-  MovieVote MovieVote[]
+  users       UserGroup[]
+  MovieVote   MovieVote[]
+  GroupInvite GroupInvite[]
 
   @@index([ownerId])
+}
+
+enum GroupInviteStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  CANCELLED
+}
+
+model GroupInvite {
+  id          Int               @id @default(autoincrement())
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  sentAt      DateTime
+  respondedAt DateTime?
+  cancelledAt DateTime?
+  status      GroupInviteStatus
+  groupId     Int
+  email       String
+  userId      Int?
+
+  group Group @relation(fields: [groupId], references: [id])
+  user  User? @relation(fields: [userId], references: [id])
+
+  @@index([groupId])
+  @@index([email])
 }
 
 model UserGroup {
