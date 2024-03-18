@@ -1,38 +1,54 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, privateProcedure } from "~/server/api/trpc";
 
+type OmdbMovie = {
+  Title: string;
+  Year: string;
+  imdbID: string;
+  Type: string;
+  Poster: string;
+};
+
+type OmdbSearchResponse = {
+  Search: OmdbMovie[];
+  totalResults: string;
+  Response: string;
+};
+
+type OmdbTitleResponse = OmdbMovie & {
+  Response: string;
+};
+
+const movieSearchType = z.enum(["MOVIE", "SERIES"]);
 export const omdbRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
+  search: privateProcedure
+    .input(z.object({ search: z.string(), type: movieSearchType }))
+    .query<OmdbSearchResponse>(async ({ ctx, input }) => {
+      console.log("searching", input.search, input.type);
+      const omdbUrl = process.env.OMDB_URL;
+      const omdbApiKey = process.env.OMDB_API_KEY;
+      if (omdbUrl && omdbApiKey) {
+        const searchUrl = `${omdbUrl}?s=${input.search}&type=${input.type}&apikey=${omdbApiKey}`;
+        const movieSearch = await fetch(searchUrl);
+        try {
+          const movieResults = (await movieSearch.json()) as OmdbSearchResponse;
 
-  create: publicProcedure
-    .input(z.object({ title: z.string().min(1) }))
-    .mutation(async ({ ctx, input }) => {
-      // simulate a slow db call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      return ctx.db.movie.create({
-        data: {
-          title: input.title,
-          type: "MOVIE",
-          year: 2024,
-          imdbId: "tt1234567",
-          posterUrl: "https://example.com/poster.jpg",
-        },
-      });
-    }),
-
-  search: publicProcedure
-    .input(z.object({ search: z.string() }))
-    .query(({ ctx }) => {
-      return ctx.db.movie.findFirst({
-        orderBy: { createdAt: "desc" },
-      });
+          if (input?.search?.length < 3 && movieResults?.Response === "False") {
+            const titleSearchUrl = `${omdbUrl}?t=${input.search}&type=${input.type}&apikey=${omdbApiKey}`;
+            const titleSearch = await fetch(titleSearchUrl);
+            const titleSearchResult =
+              (await titleSearch.json()) as OmdbTitleResponse;
+            if (titleSearchResult.Response === "True") {
+              movieResults.Search = [titleSearchResult];
+            }
+          }
+          return movieResults;
+        } catch (e) {
+          console.error(e);
+          return { Response: "False", Search: [], totalResults: "0" };
+        }
+      }
+      return { Response: "False", Search: [], totalResults: "0" };
     }),
 });

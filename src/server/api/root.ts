@@ -1,5 +1,7 @@
 import { omdbRouter } from "~/server/api/routers/omdb";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
+import { userRouter } from "~/server/api/routers/user";
+import { movieRouter } from "~/server/api/routers/movie";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +10,8 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   omdb: omdbRouter,
+  user: userRouter,
+  movie: movieRouter,
 });
 
 // export type definition of API
