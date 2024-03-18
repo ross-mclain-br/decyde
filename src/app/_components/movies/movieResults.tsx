@@ -8,12 +8,14 @@ export const MovieResults = ({
   search,
   type,
   userMovieVotes,
+  userMovieVotesRefetch,
   groupId,
 }: {
   userId: number;
   search: string;
   type: MovieSearchType;
   userMovieVotes: RouterOutputs["movie"]["getUserVotes"];
+  userMovieVotesRefetch: () => void;
   groupId?: number;
 }) => {
   const { data: movieSearchResultsData, isLoading } = api.omdb.search.useQuery(
@@ -62,6 +64,7 @@ export const MovieResults = ({
                   key={movieAndVote.movie.imdbID}
                   movie={movieAndVote.movie}
                   vote={movieAndVote.vote}
+                  userMovieVotesRefetch={userMovieVotesRefetch}
                   userId={userId}
                   groupId={groupId}
                 />

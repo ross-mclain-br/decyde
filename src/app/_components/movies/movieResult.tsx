@@ -7,23 +7,29 @@ import {
 } from "~/components/ui/hover-card";
 import { Button } from "~/components/ui/button";
 import { api, RouterOutputs } from "~/trpc/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getMovieTypeFromString } from "~/lib/utils";
 
 export const MovieResult = ({
   movie,
   vote,
+  userMovieVotesRefetch,
   userId,
   groupId,
 }: {
   movie: RouterOutputs["omdb"]["search"]["Search"][0];
   vote: boolean;
+  userMovieVotesRefetch: () => void;
   userId: number;
   groupId?: number;
 }) => {
   const [votedForMovie, setVotedForMovie] = useState(vote);
 
-  const upsertMovieVote = api.movie.upsertMovieVote.useMutation();
+  const upsertMovieVote = api.movie.upsertMovieVote.useMutation({
+    onSuccess: () => {
+      userMovieVotesRefetch();
+    },
+  });
 
   return (
     <div
