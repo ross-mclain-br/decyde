@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const DecisionOptions = () => {
   return (
-    <div className={"grid grid-cols-3"}>
+    <div className={"grid grid-cols-1 md:grid-cols-3"}>
       <Link href={"/decisions/movies"} className={"w-full"}>
         <Button
           className={"flex w-full flex-grow flex-col"}
@@ -29,7 +29,7 @@ export const DecisionOptions = () => {
           </div>
           <span
             className={
-              "from-purple via-blue to-purple bg-gradient-to-r bg-clip-text !text-[transparent]"
+              "bg-gradient-to-r from-purple via-blue to-purple bg-clip-text !text-[transparent]"
             }
           >
             Movies

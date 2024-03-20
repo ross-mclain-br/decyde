@@ -5,6 +5,8 @@ import { useState } from "react";
 import { type MovieSearchType } from "~/forms/movieSearchForm";
 import { api } from "~/trpc/react";
 import { useUser } from "@clerk/nextjs";
+import { MovieCarousel } from "~/app/_components/movies/movieCarousel";
+import Loading from "~/app/loading";
 
 export const MovieWidget = () => {
   const { user } = useUser();
@@ -24,18 +26,30 @@ export const MovieWidget = () => {
     useState<MovieSearchType | null>(null);
 
   //Get all user movie votes
-  const { data: userMovieVotesData, refetch: userMovieVotesRefetch } =
-    api.movie.getUserVotes.useQuery(
-      {
-        userId: userData?.id ?? 0,
-      },
-      {
-        enabled: !!userData?.id,
-      },
-    );
+  const {
+    data: userMovieVotesData,
+    refetch: userMovieVotesRefetch,
+    isLoading: userMovieVotesDataLoading,
+  } = api.movie.getUserVotes.useQuery(
+    {
+      userId: userData?.id ?? 0,
+    },
+    {
+      enabled: !!userData?.id,
+    },
+  );
 
   return (
     <>
+      {userMovieVotesDataLoading ? (
+        <div className={"flex items-center justify-center px-3 py-32"}>
+          <Loading />
+        </div>
+      ) : userMovieVotesData && userMovieVotesData.length > 0 ? (
+        <MovieCarousel userMovieVotes={userMovieVotesData} />
+      ) : (
+        <></>
+      )}
       <MovieSearch
         currentSearchValue={currentSearchValue}
         setCurrentSearchValue={setCurrentSearchValue}

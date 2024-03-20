@@ -29,7 +29,7 @@ export const MovieSearch = ({
   const { useStore, handleSubmit, Subscribe, Field } =
     movieSearchFormFactory.useForm({
       transform: useTransform(
-        (baseForm: FormApi<any, any>) => mergeForm(baseForm, state),
+        (baseForm: FormApi<unknown, unknown>) => mergeForm(baseForm, state),
         [state],
       ),
       onSubmit: async (values) => {
@@ -49,8 +49,8 @@ export const MovieSearch = ({
   const formErrors = useStore((formState) => formState.errors);
 
   return (
-    <div className={"container mt-32"}>
-      <div className={"container sm:px-16"}>
+    <div className={"mt-16"}>
+      <div className={"container md:px-16"}>
         <form
           action={action as never}
           onSubmit={() => handleSubmit()}

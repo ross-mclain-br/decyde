@@ -63,11 +63,13 @@ export const MovieResult = ({
       >
         <HoverCard>
           <HoverCardTrigger>
-            <p className={"truncate text-sm font-bold"}>{movie.Title}</p>
+            <p className={"max-w-[230px] truncate text-sm font-bold"}>
+              {movie.Title}
+            </p>
             <span>{movie.Year}</span>
           </HoverCardTrigger>
           <HoverCardContent
-            className="w-80  bg-primary text-primary-foreground"
+            className="w-80 bg-primary text-primary-foreground"
             side={"top"}
           >
             <div className="flex justify-between space-x-4">

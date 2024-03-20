@@ -1,6 +1,6 @@
 import { SignUp } from "@clerk/nextjs";
 
-export default function Page() {
+export default async function Page() {
   return (
     <div className={"container mt-52 flex items-center justify-center"}>
       {" "}
