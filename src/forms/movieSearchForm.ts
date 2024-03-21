@@ -2,7 +2,7 @@ import { createFormFactory } from "@tanstack/react-form";
 import { z } from "zod";
 
 export type MovieSearchType = "MOVIE" | "SERIES";
-const movieSearchType = z.enum(["MOVIE", "SERIES"]);
+export const movieSearchType = z.enum(["MOVIE", "SERIES"]);
 const movieSearchForm = z.object({
   search: z.string(),
   type: movieSearchType,
@@ -13,7 +13,7 @@ export const movieSearchFormFactory = createFormFactory<MovieSearchFormType>({
     search: "",
     type: movieSearchType.Enum.MOVIE,
   },
-  onServerValidate({ value }) {
+  onServerValidate() {
     // console.log("Server validation", value);
     // if ((value?.search?.length ?? 0) < 2) {
     //   return "Server validation: Search must be at least 2 characters long";

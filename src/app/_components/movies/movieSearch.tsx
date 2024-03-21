@@ -1,9 +1,9 @@
 "use client";
 import {
   movieSearchFormFactory,
-  MovieSearchType,
+  type MovieSearchType,
 } from "~/forms/movieSearchForm";
-import { FormApi, mergeForm, useTransform } from "@tanstack/react-form";
+import { mergeForm, useTransform } from "@tanstack/react-form";
 import { useFormState } from "react-dom";
 import { Input } from "~/components/ui/input";
 import { zodValidator } from "@tanstack/zod-form-adapter";
@@ -11,14 +11,10 @@ import validateMovieSearch from "~/forms/movieSearchValidate";
 import { Button } from "~/components/ui/button";
 
 export const MovieSearch = ({
-  currentSearchValue,
   setCurrentSearchValue,
-  currentTypeValue,
   setCurrentTypeValue,
 }: {
-  currentSearchValue: string | null;
   setCurrentSearchValue: (value: string) => void;
-  currentTypeValue: MovieSearchType | null;
   setCurrentTypeValue: (value: MovieSearchType) => void;
 }) => {
   const [state, action] = useFormState(
@@ -29,7 +25,7 @@ export const MovieSearch = ({
   const { useStore, handleSubmit, Subscribe, Field } =
     movieSearchFormFactory.useForm({
       transform: useTransform(
-        (baseForm: FormApi<unknown, unknown>) => mergeForm(baseForm, state),
+        (baseForm) => mergeForm(baseForm, state),
         [state],
       ),
       onSubmit: async (values) => {

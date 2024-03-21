@@ -51,9 +51,7 @@ export const MovieWidget = () => {
         <></>
       )}
       <MovieSearch
-        currentSearchValue={currentSearchValue}
         setCurrentSearchValue={setCurrentSearchValue}
-        currentTypeValue={currentTypeValue}
         setCurrentTypeValue={setCurrentTypeValue}
       />
       <div className={"sm:p-6"}>

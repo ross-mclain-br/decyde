@@ -25,7 +25,7 @@ export const omdbRouter = createTRPCRouter({
   search: privateProcedure
     .input(z.object({ search: z.string(), type: movieSearchType }))
     .query<OmdbSearchResponse>(async ({ ctx, input }) => {
-      console.log("searching", input.search, input.type);
+      console.log("searching", input.search, input.type, ctx);
       const omdbUrl = process.env.OMDB_URL;
       const omdbApiKey = process.env.OMDB_API_KEY;
       if (omdbUrl && omdbApiKey) {

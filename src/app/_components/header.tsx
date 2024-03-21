@@ -6,6 +6,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
+import Image from "next/image";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -23,10 +24,12 @@ export const Navbar = () => {
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 rounded-full bg-blue p-1.5">
             <span className="sr-only">Your Company</span>
-            <img
+            <Image
               className="h-8 w-auto"
               src="/images/decision_icon.png"
               alt=""
+              width={32}
+              height={32}
             />
           </a>
         </div>
@@ -74,10 +77,12 @@ export const Navbar = () => {
           <div className="flex items-center justify-between">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Decyde</span>
-              <img
+              <Image
                 className="h-8 w-auto"
                 src="/images/decision_icon.png"
                 alt=""
+                width={32}
+                height={32}
               />
             </Link>
             <Button type="button" onClick={() => setMobileMenuOpen(false)}>

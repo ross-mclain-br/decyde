@@ -11,8 +11,7 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { db } from "~/server/db";
-import { AuthObject, getAuth } from "@clerk/nextjs/server";
-import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
+import { type AuthObject } from "@clerk/nextjs/server";
 
 /**
  * 1. CONTEXT

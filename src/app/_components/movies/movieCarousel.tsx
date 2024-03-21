@@ -7,7 +7,7 @@ import {
   CarouselPrevious,
 } from "~/components/ui/carousel";
 import { Card, CardContent } from "~/components/ui/card";
-import { RouterOutputs } from "~/trpc/react";
+import { type RouterOutputs } from "~/trpc/react";
 import Image from "next/image";
 
 export const MovieCarousel = ({

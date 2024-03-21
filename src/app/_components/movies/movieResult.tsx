@@ -6,8 +6,8 @@ import {
   HoverCardTrigger,
 } from "~/components/ui/hover-card";
 import { Button } from "~/components/ui/button";
-import { api, RouterOutputs } from "~/trpc/react";
-import { useEffect, useState } from "react";
+import { api, type RouterOutputs } from "~/trpc/react";
+import { useState } from "react";
 import { getMovieTypeFromString } from "~/lib/utils";
 
 export const MovieResult = ({

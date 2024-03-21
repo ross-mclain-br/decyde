@@ -1,5 +1,5 @@
 import { type MovieSearchType } from "~/forms/movieSearchForm";
-import { RouterOutputs, api } from "~/trpc/react";
+import { type RouterOutputs, api } from "~/trpc/react";
 import { Loading } from "~/app/loading";
 import MovieResult from "~/app/_components/movies/movieResult";
 

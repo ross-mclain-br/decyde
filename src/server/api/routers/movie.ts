@@ -2,7 +2,7 @@ import { type Movie, type MovieVote } from "@prisma/client";
 import { z } from "zod";
 
 import { createTRPCRouter, privateProcedure } from "~/server/api/trpc";
-import { MovieCreateInputSchema } from "../../../../prisma/generated/zod";
+import { movieSearchType } from "~/forms/movieSearchForm";
 export const movieRouter = createTRPCRouter({
   upsertMovieVote: privateProcedure
     .input(
@@ -12,7 +12,16 @@ export const movieRouter = createTRPCRouter({
         imdbId: z.string(),
         groupId: z.number().optional(),
         vote: z.number(),
-        movie: MovieCreateInputSchema.optional(),
+        movie: z
+          .object({
+            id: z.number().optional(),
+            title: z.string(),
+            year: z.number(),
+            type: movieSearchType,
+            imdbId: z.string(),
+            posterUrl: z.string(),
+          })
+          .optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
