@@ -22,7 +22,7 @@ export const Navbar = () => {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 rounded-full bg-blue p-1.5">
+          <Link href="/" className="-m-1.5 rounded-full bg-blue p-1.5">
             <span className="sr-only">Your Company</span>
             <Image
               className="h-8 w-auto"
@@ -31,7 +31,7 @@ export const Navbar = () => {
               width={32}
               height={32}
             />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <Button
