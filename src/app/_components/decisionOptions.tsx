@@ -27,13 +27,7 @@ export const DecisionOptions = () => {
               />
             </svg>
           </div>
-          <span
-            className={
-              "bg-gradient-to-r from-purple via-blue to-purple bg-clip-text !text-[transparent]"
-            }
-          >
-            Movies
-          </span>
+          <span className={""}>Movies</span>
         </Button>
       </Link>
     </div>

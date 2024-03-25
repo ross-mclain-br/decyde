@@ -6,7 +6,7 @@ import { type MovieSearchType } from "~/forms/movieSearchForm";
 import { api } from "~/trpc/react";
 import { useUser } from "@clerk/nextjs";
 import { MovieCarousel } from "~/app/_components/movies/movieCarousel";
-import Loading from "~/app/loading";
+import Loading from "~/app/_components/loading";
 
 export const MovieWidget = () => {
   const { user } = useUser();

@@ -10,25 +10,28 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "bg-primary text-blue shadow hover:bg-blue hover:text-white font-bold",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
           "border border-input text-blue bg-transparent shadow-sm hover:scale-[105%]",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-primary hover:text-primary-foreground",
-        link: "text-primary rounded-none underline-offset-4 font-bold border-b-2 border-transparent hover:border-primary text-2xl",
-        vote: "hover:bg-teal hover:text-blue",
+        ghost: "hover:bg-primary hover:text-secondary",
+        link: "text-transparent bg-gradient-to-r from-blue to-primary bg-clip-text hover:text-primary rounded-none underline-offset-4 font-bold border-b-2 border-transparent hover:border-primary text-2xl",
+        vote: " hover:text-gold focus:text-gold",
+        group:
+          "shadow-xl border-2 border-dashed border-blue text-blue hover:border-solid hover:bg-blue hover:text-white font-bold flex flex-col items-center justify-center",
         decision:
-          "shadow-lg hover:bg-teal/10 hover:scale-[106%] from-teal/10 to-teal/30 bg-gradient-to-tr font-bold text-2xl text-purple",
+          "shadow-inner border-blue border-2 bg-white/50 hover:bg-blue hover:text-white text-blue hover:scale-[106%] font-bold text-2xl",
       },
       size: {
-        default: "h-9 px-4 py-2",
+        default: "h-9 p-3",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
         decision: "h-80",
+        group: "p-14",
       },
     },
     defaultVariants: {

@@ -25,7 +25,7 @@ export const MovieSearch = ({
   const { useStore, handleSubmit, Subscribe, Field } =
     movieSearchFormFactory.useForm({
       transform: useTransform(
-        (baseForm) => mergeForm(baseForm, state),
+        (baseForm) => mergeForm(baseForm ?? {}, state ?? {}),
         [state],
       ),
       onSubmit: async (values) => {

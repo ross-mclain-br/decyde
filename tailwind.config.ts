@@ -19,43 +19,19 @@ const config = {
     },
     extend: {
       colors: {
-        border: "#210124",
-        input: "#210124",
-        ring: "#210124",
+        border: "#022449",
+        input: "#022449",
+        ring: "#022449",
         gold: "#FFBA08",
-        blue: "#00172f",
+        blue: "#022449",
         purple: "#210124",
-        teal: "#3CBBB1",
-        background: "#FFBA08",
-        foreground: "#210124",
-        primary: {
-          DEFAULT: "#210124",
-          foreground: "#FFBA08",
-        },
-        secondary: {
-          DEFAULT: "#FFBA08",
-          foreground: "#210124",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "#ffd56b",
-          foreground: "#231425",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "#3CBBB1",
-          foreground: "hsl(var(--card-foreground))",
-        },
+        teal: "#98FFFF",
+        background: "#C8EFF4",
+        foreground: "#022449",
+        primary: "#F27D42",
+        secondary: "#FFFFFF",
+        muted: "#C8EFF4",
+        card: "#3CBBB1",
       },
       backgroundSize: {
         "size-200": "200% 200%",
@@ -63,11 +39,6 @@ const config = {
       backgroundPosition: {
         "pos-0": "0% 0%",
         "pos-100": "100% 100%",
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {

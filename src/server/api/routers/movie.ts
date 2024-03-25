@@ -81,6 +81,11 @@ export const movieRouter = createTRPCRouter({
         include: {
           movie: true,
         },
+        orderBy: {
+          movie: {
+            title: "asc",
+          },
+        },
       });
     }),
 });

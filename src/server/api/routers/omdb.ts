@@ -23,13 +23,19 @@ type OmdbTitleResponse = OmdbMovie & {
 const movieSearchType = z.enum(["MOVIE", "SERIES"]);
 export const omdbRouter = createTRPCRouter({
   search: privateProcedure
-    .input(z.object({ search: z.string(), type: movieSearchType }))
+    .input(
+      z.object({
+        search: z.string(),
+        type: movieSearchType,
+        page: z.number().optional(),
+      }),
+    )
     .query<OmdbSearchResponse>(async ({ ctx, input }) => {
       console.log("searching", input.search, input.type, ctx);
       const omdbUrl = process.env.OMDB_URL;
       const omdbApiKey = process.env.OMDB_API_KEY;
       if (omdbUrl && omdbApiKey) {
-        const searchUrl = `${omdbUrl}?s=${input.search}&type=${input.type}&apikey=${omdbApiKey}`;
+        const searchUrl = `${omdbUrl}?s=${input.search}&type=${input.type}&apikey=${omdbApiKey}${input.page ? `&page=${input.page}` : ""}`;
         const movieSearch = await fetch(searchUrl);
         try {
           const movieResults = (await movieSearch.json()) as OmdbSearchResponse;
