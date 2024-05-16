@@ -10,7 +10,7 @@ export const GroupCard = (props: {
   return (
     <div
       className={
-        "flex flex-grow flex-col justify-between rounded-lg border-2 border-blue bg-secondary p-4 text-blue shadow-2xl"
+        "flex flex-grow flex-col justify-between rounded-lg border-2 border-blue bg-transparent p-4 text-blue shadow-2xl"
       }
     >
       <div className={"flex flex-col"}>

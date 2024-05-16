@@ -16,7 +16,7 @@ export default async function Home() {
             }}
           />
         </div>
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+        <div className="mx-auto max-w-2xl py-32 sm:py-32 lg:py-32">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-purple sm:text-6xl">
               Enrich your decision making process with
@@ -31,10 +31,10 @@ export default async function Home() {
                 Decyde
               </span>
             </div>
-            <div className="mt-10 flex items-center justify-center gap-x-6"></div>
+            <div className=" flex items-center justify-center gap-x-6"></div>
           </div>
         </div>
-        <div className={" w-full"}>
+        <div className={" w-full "}>
           <DecisionOptions />
         </div>
         <div

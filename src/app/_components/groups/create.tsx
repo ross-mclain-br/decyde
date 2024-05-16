@@ -58,6 +58,7 @@ export const CreateGroup = () => {
             image: "",
             color: "",
             ownerId: userData?.id ?? 0,
+            users: [{ userId: userData?.id ?? 0, type: "OWNER" }],
           });
         }
       },

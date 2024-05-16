@@ -1,13 +1,21 @@
 "use client";
 
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog } from "@headlessui/react";
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { NotificationsBell } from "~/app/_components/notifications/notificationsBell";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
+import { api } from "~/trpc/react";
 
 const navigation = [
   { name: "Decisions", href: "/" },
@@ -15,14 +23,38 @@ const navigation = [
 ];
 export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState("personal");
 
+  const { user } = useUser();
+  const { data: userData } = api.user.getUserByExternalId.useQuery(
+    {
+      externalUserId: user?.id ?? "",
+    },
+    {
+      enabled: !!user?.id,
+    },
+  );
+
+  //Get all user groups
+  const {
+    data: userGroupData,
+    refetch: userGroupRefetch,
+    isLoading: userGroupLoading,
+  } = api.group.getUserGroups.useQuery(
+    {
+      userId: userData?.id ?? 0,
+    },
+    {
+      enabled: !!userData?.id,
+    },
+  );
   return (
     <header className="absolute inset-x-0 top-0 z-40">
       <nav
         className="flex items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
+        <div className="flex gap-3 lg:flex-1">
           <Link href="/" className="-m-1.5 rounded-full bg-blue p-1.5">
             <span className="sr-only">Your Company</span>
             <Image
@@ -56,13 +88,32 @@ export const Navbar = () => {
           ))}
         </div>
         <div className="hidden items-center gap-x-3 lg:flex lg:flex-1 lg:justify-end">
+          <Select
+            value={selectedGroup}
+            onValueChange={(value) => setSelectedGroup(() => value)}
+          >
+            <SelectTrigger className="w-48">
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="personal">Personal</SelectItem>
+              {userGroupData?.map((userGroup) => (
+                <SelectItem
+                  key={`group-select-item-${userGroup?.group?.id}`}
+                  value={userGroup?.group?.id?.toString()}
+                >
+                  {userGroup?.group?.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <NotificationsBell />
           <UserButton
             afterSignOutUrl="/"
             appearance={{
               elements: {
                 userButtonAvatarBox: "w-12 h-12",
-                userButtonPopoverCard: "bg-teal/60 shadow-lg",
+                userButtonPopoverCard: "bg-white shadow-lg text-blue",
               },
             }}
           />
@@ -112,7 +163,7 @@ export const Navbar = () => {
                   appearance={{
                     elements: {
                       userButtonAvatarBox: "w-12 h-12",
-                      userButtonPopoverCard: "bg-secondary/50 shadow-lg",
+                      userButtonPopoverCard: "bg-white shadow-lg",
                     },
                   }}
                 />

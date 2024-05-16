@@ -20,10 +20,10 @@ export const NotificationsBell = () => {
           <BellIcon className="h-6 w-6" aria-hidden="true" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="mr-6 mt-2 w-80 border-0 bg-blue/90 p-3">
+      <PopoverContent className="mr-6 mt-2 w-80 border-0 bg-white p-3">
         <div className="grid gap-4">
           <div>
-            <h3 className="text-lg font-bold text-muted">
+            <h3 className="text-lg font-bold text-blue">
               No New Notifications
             </h3>
           </div>

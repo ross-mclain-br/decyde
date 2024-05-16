@@ -18,7 +18,7 @@ export const UserGroupAvatarList = ({
           key={`user-avatar-${userGroup?.user?.id}`}
           className={`-ml-[16px]`}
         >
-          <UserAvatar user={userGroup?.user} />
+          <UserAvatar user={userGroup?.user} userGroup={userGroup} />
         </div>
       ))}
     </div>

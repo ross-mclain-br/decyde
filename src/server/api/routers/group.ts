@@ -29,6 +29,9 @@ export const groupRouter = createTRPCRouter({
           image: input.image,
           color: input.color,
           ownerId: input.ownerId,
+          users: {
+            create: input.users,
+          },
         },
       });
       return upsertGroupResult;

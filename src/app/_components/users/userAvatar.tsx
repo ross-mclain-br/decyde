@@ -5,10 +5,9 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "~/components/ui/hover-card";
+import type { User, UserGroup } from "@prisma/client";
 
-export const UserAvatar = (props: {
-  user: RouterOutputs["user"]["getUserByExternalId"];
-}) => {
+export const UserAvatar = (props: { user: User; userGroup?: UserGroup }) => {
   if (!props.user) return <></>;
   return (
     <div className={"flex items-center rounded-lg"}>
@@ -32,6 +31,11 @@ export const UserAvatar = (props: {
             {props.user.emailAddress && (
               <div className={"text-muted-foreground text-sm"}>
                 {props.user.emailAddress}
+              </div>
+            )}
+            {props.userGroup && (
+              <div className={"mt-1  text-xs uppercase text-blue/80"}>
+                {props.userGroup.type}
               </div>
             )}
           </div>

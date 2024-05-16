@@ -27,6 +27,7 @@ const config = {
         purple: "#210124",
         teal: "#98FFFF",
         background: "#C8EFF4",
+        popover: "#FFFFFF",
         foreground: "#022449",
         primary: "#F27D42",
         secondary: "#FFFFFF",

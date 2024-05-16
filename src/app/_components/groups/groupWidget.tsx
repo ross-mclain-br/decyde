@@ -20,7 +20,7 @@ export const GroupWidget = (props: { groupId: number }) => {
     },
   );
   return (
-    <div className={"min-h-screen bg-white/80 py-3"}>
+    <div className={"min-h-screen py-3"}>
       <div className={"mt-3"}>
         {groupDataLoading ? (
           <Loading />

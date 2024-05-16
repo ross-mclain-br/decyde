@@ -1,6 +1,13 @@
 import { createFormFactory } from "@tanstack/react-form";
 import { z } from "zod";
 
+export const userGroupTypeEnum = z.enum([
+  "OWNER",
+  "MEMBER",
+  "ADMIN",
+  "INVITED",
+  "OTHER",
+]);
 export const groupFormInputType = z.object({
   id: z.number().optional(),
   name: z.string(),
@@ -8,6 +15,14 @@ export const groupFormInputType = z.object({
   image: z.string().optional(),
   color: z.string().optional(),
   ownerId: z.number(),
+  users: z
+    .array(
+      z.object({
+        userId: z.number(),
+        type: userGroupTypeEnum,
+      }),
+    )
+    .optional(),
 });
 
 export type GroupFormType = z.infer<typeof groupFormInputType>;
